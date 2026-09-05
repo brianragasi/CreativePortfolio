@@ -11,6 +11,24 @@ npm run dev
 
 Create a production build with `npm run build`.
 
+## Deploy with Cloudflare Pages
+
+This repository is ready for Cloudflare Pages' Git integration:
+
+- Repository: `brianragasi/CreativePortfolio`
+- Production branch: `main`
+- Framework preset: `Vite`
+- Build command: `npm run build`
+- Build output directory: `dist`
+
+In Cloudflare, open **Workers & Pages**, create a Pages application, choose
+**Connect to Git**, and select this repository. Git integration automatically
+builds and deploys the site when `main` is updated.
+
+Cloudflare assigns a free `*.pages.dev` address after the first deployment. A
+separately purchased custom domain can be attached from the Pages project's
+**Custom domains** settings.
+
 ## Personalize it
 
 Edit `src/portfolio.ts` to replace the name, bio, contact details, social links,
