@@ -1,6 +1,7 @@
 import profilePhoto from './assets/brian-profile.jpg'
 import highlandFreshScreenshot from './assets/highland-fresh.png'
 import dotaScreenshot from './assets/dota-draft-predictor.png'
+import dotaTrackerScreenshot from './assets/dota-tracker.png'
 import minecraftScreenshot from './assets/minecraft-game.png'
 import capstoneBaiScreenshot from './assets/capstone-bai.png'
 
@@ -23,6 +24,7 @@ export const projects = [
     kicker: 'Featured case study',
     description:
       'An end-to-end operations platform that replaces scattered manual workflows with one clear system for inventory, orders, and reporting.',
+    contribution: 'Full-stack application development, interface design, authentication flows, and relational data modeling.',
     tags: ['React', 'TypeScript', 'Node.js', 'MySQL'],
     accent: 'green',
     metric: 'Staff sign-in portal',
@@ -32,10 +34,25 @@ export const projects = [
     imageAlt: 'Highland Fresh Dairy Operations System staff sign-in page with role-based access for plant operations',
   },
   {
+    title: 'Aegis Signal — Dota 2 Match Tracker',
+    kicker: 'Cloud analytics platform',
+    description:
+      'A Cloudflare-native system for live match tracking, schedules, transparent winner probabilities, roster continuity, trends, and paper-mode evaluation.',
+    contribution: 'End-to-end architecture, Worker APIs, D1 data modeling, provider integrations, prediction logic, automated ingestion, testing, and responsive product design.',
+    tags: ['Cloudflare Workers', 'D1', 'JavaScript', 'Vitest'],
+    accent: 'lime',
+    metric: 'Live match intelligence',
+    image: dotaTrackerScreenshot,
+    imageWidth: 1800,
+    imageHeight: 1375,
+    imageAlt: 'Aegis Signal live board for professional Dota 2 match tracking and probability analysis',
+  },
+  {
     title: 'Dota 2 Analytics',
     kicker: 'Data product',
     description:
       'A match-analysis experience that turns dense game data into useful trends, comparisons, and player-level insights.',
+    contribution: 'Data-oriented interface design, application logic, API integration, and analytics presentation.',
     tags: ['API', 'Data Viz', 'React', 'Python'],
     accent: 'red',
     metric: 'Draft prediction interface',
@@ -49,6 +66,7 @@ export const projects = [
     kicker: 'Infrastructure',
     description:
       'A performance-minded multiplayer server setup with automated backups, service monitoring, access controls, and clear operating docs.',
+    contribution: 'Server administration, performance monitoring, permissions, networking, and operational automation.',
     tags: ['Linux', 'Docker', 'Networking', 'Automation'],
     accent: 'blue',
     metric: 'In-game server overview',
@@ -62,6 +80,7 @@ export const projects = [
     kicker: 'Student tool',
     description:
       'A capstone title generator for Cagayan de Oro City, with programming language and database selections to guide project ideas.',
+    contribution: 'Product concept, user interface, input workflow, and title-generation experience.',
     tags: ['Title generation', 'Language selection', 'Database selection'],
     accent: 'purple',
     metric: 'Capstone title generator',

@@ -202,8 +202,8 @@ function ProjectsContent() {
                   </figure>
                 )}
                 <p>{project.description}</p>
+                <p><strong>My contribution:</strong> {project.contribution}</p>
                 <p><strong>Focus:</strong> {project.tags.join(', ')}</p>
-                <p className="sample-note">Replace this sample summary with your role, implementation details, and real outcomes in <code>src/portfolio.ts</code>.</p>
               </div>
             )}
           </article>
