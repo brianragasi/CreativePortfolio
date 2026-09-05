@@ -1,0 +1,232 @@
+:root {
+  font-family: Tahoma, Verdana, "Segoe UI", sans-serif;
+  color: #1b2740;
+  background: #1d70d6;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --xp-blue: #245edb;
+  --xp-blue-deep: #0a3aa7;
+  --xp-green: #42a52c;
+  --ink: #172033;
+  --muted: #667085;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+
+button, input, textarea { font: inherit; }
+button { color: inherit; }
+
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid #ffb300;
+  outline-offset: 2px;
+}
+
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: #050505;
+  transition: opacity .38s ease, visibility .38s ease;
+}
+
+.boot-screen--leaving { opacity: 0; visibility: hidden; }
+.boot-skip { position: absolute; right: 22px; top: 20px; border: 0; background: transparent; color: #aaa; cursor: pointer; font-size: 12px; }
+.boot-skip:hover { color: white; }
+.boot-mark { width: 68px; height: 58px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; transform: skewY(-5deg); margin-bottom: 12px; }
+.boot-pane { border-radius: 3px; filter: saturate(1.2); }
+.boot-pane--red { background: linear-gradient(135deg, #f44336, #b51616); }
+.boot-pane--green { background: linear-gradient(135deg, #78d928, #3e9817); }
+.boot-pane--blue { background: linear-gradient(135deg, #36a8ef, #1268c2); }
+.boot-pane--yellow { background: linear-gradient(135deg, #ffd138, #e18a00); }
+.boot-name { font: 600 32px "Segoe UI", sans-serif; letter-spacing: -.8px; }
+.boot-name span { color: #f58b24; font-size: 20px; margin-left: 4px; }
+.boot-screen > p { margin: 2px 0 44px; color: #aaa; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; }
+.boot-screen > small { color: #777; font-size: 11px; margin-top: 10px; }
+.boot-loader { width: 132px; height: 18px; border: 2px solid #777; border-radius: 4px; padding: 3px; display: flex; gap: 3px; overflow: hidden; }
+.boot-loader i { width: 22px; flex: 0 0 auto; border-radius: 2px; background: linear-gradient(#5fa1ff, #184be2); animation: boot-slide 1.05s linear infinite; transform: translateX(-78px); }
+.boot-loader i:nth-child(2) { animation-delay: .14s; }.boot-loader i:nth-child(3) { animation-delay: .28s; }
+@keyframes boot-slide { to { transform: translateX(145px); } }
+
+.desktop {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  user-select: none;
+  background:
+    radial-gradient(ellipse at 68% 18%, rgba(255,255,255,.92) 0 3%, transparent 3.4%),
+    radial-gradient(ellipse at 63% 19%, rgba(255,255,255,.85) 0 5%, transparent 5.4%),
+    linear-gradient(176deg, transparent 0 50%, rgba(65,154,37,.25) 50.2% 52%, transparent 52.2%),
+    radial-gradient(ellipse at 17% 109%, #72bd35 0 27%, transparent 27.2%),
+    radial-gradient(ellipse at 72% 119%, #4c9d2e 0 42%, transparent 42.2%),
+    linear-gradient(#2787e2 0%, #4db5ed 51%, #80c73b 51.2%, #3a9729 100%);
+}
+
+.desktop::before {
+  content: "";
+  position: absolute;
+  inset: 51% 0 44px;
+  background: repeating-linear-gradient(78deg, transparent 0 7px, rgba(255,255,175,.07) 8px 9px);
+  opacity: .7;
+}
+
+.sky-cloud { position: absolute; width: 150px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.7); filter: blur(2px); }
+.sky-cloud::before,.sky-cloud::after { content: ""; position: absolute; background: inherit; border-radius: 50%; }
+.sky-cloud::before { width: 70px; height: 60px; left: 30px; top: -20px; }.sky-cloud::after { width: 80px; height: 52px; right: 12px; top: -12px; }
+.sky-cloud--one { left: 20%; top: 11%; transform: scale(.72); opacity: .8; }.sky-cloud--two { right: 9%; top: 31%; transform: scale(.45); opacity: .55; }
+
+.desktop-icons { position: absolute; left: 12px; top: 12px; bottom: 50px; display: grid; grid-auto-rows: 82px; grid-template-columns: 88px; gap: 4px; z-index: 1; }
+.desktop-icon { width: 86px; min-height: 76px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 5px 3px; gap: 4px; cursor: default; color: white; text-shadow: 1px 1px 2px #09245b, -1px -1px 1px rgba(9,36,91,.6); font-size: 12px; line-height: 1.15; }
+.desktop-icon > span:last-child { padding: 2px 4px; border: 1px solid transparent; }
+.desktop-icon--selected > span:last-child { background: rgba(21,73,176,.82); border: 1px dotted white; }
+.desktop-icon-image { width: 45px; height: 44px; display: grid; place-items: center; color: #fff; filter: drop-shadow(1px 2px 1px rgba(0,0,0,.45)); border-radius: 5px; }
+.desktop-icon-image--folder { color: #fff6b0; background: linear-gradient(145deg, #f6c725 40%, #e68c0a 42%); }
+.desktop-icon-image--user { background: linear-gradient(145deg, #82d8ff, #155cc7); }
+.desktop-icon-image--tools { background: linear-gradient(145deg, #8799ae, #415466); }
+.desktop-icon-image--document { color: #2873c9; background: linear-gradient(145deg, #fff, #d4e8ff); }
+.desktop-icon-image--mail { color: #3564bc; background: linear-gradient(165deg, #fff 48%, #f5d072 49%); }
+.desktop-icon-image--recycle { color: #1f7ab8; background: linear-gradient(145deg, rgba(255,255,255,.9), rgba(190,235,255,.62)); border: 2px solid rgba(255,255,255,.8); }
+
+.xp-window {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  min-width: 390px;
+  min-height: 260px;
+  padding: 3px;
+  border: 1px solid #0b3ca4;
+  border-radius: 8px 8px 2px 2px;
+  background: #0a50d4;
+  box-shadow: 0 14px 38px rgba(12,32,84,.34), inset 1px 1px 0 rgba(255,255,255,.55), inset -1px 0 0 rgba(0,23,117,.75);
+  overflow: hidden;
+  animation: window-open .18s ease-out both;
+  resize: both;
+}
+@keyframes window-open { from { opacity: 0; transform: scale(.965) translateY(5px); } }
+.xp-window:not(.xp-window--active) { background: #5c85c5; border-color: #496a9c; box-shadow: 0 10px 25px rgba(12,32,84,.22); }
+.xp-window--maximized { inset: 0 0 40px 0; width: auto; height: auto; border-radius: 0; resize: none; }
+.titlebar { height: 30px; flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 3px 0 6px; color: white; border-radius: 5px 5px 0 0; cursor: default; background: linear-gradient(180deg, #3d90ff 0%, #1260dc 12%, #0b4dcc 55%, #1a66dd 87%, #00349a 100%); text-shadow: 1px 1px #0d3282; }
+.xp-window:not(.xp-window--active) .titlebar { background: linear-gradient(#9db5db, #7193c7 50%, #809dcb); }
+.titlebar-name { display: flex; align-items: center; gap: 5px; min-width: 0; font-size: 13px; font-weight: 700; }
+.titlebar-name span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.window-controls { display: flex; align-items: center; gap: 2px; }
+.window-controls button { width: 23px; height: 23px; border: 1px solid white; border-radius: 4px; color: white; padding: 0; display: grid; place-items: center; background: linear-gradient(135deg, #5ca2f8, #1a56c8); box-shadow: inset 1px 1px 2px rgba(255,255,255,.65), inset -1px -1px 2px rgba(0,35,129,.7); cursor: pointer; }
+.window-controls button:active { transform: translateY(1px); }
+.window-controls .close-button { background: linear-gradient(135deg, #ef9c81, #d53318 55%, #a81e0e); margin-left: 1px; }
+.minimize-mark { width: 9px; height: 2px; border-bottom: 2px solid white; margin-top: 7px; }.maximize-mark { width: 10px; height: 9px; border: 1.5px solid white; border-top-width: 3px; }.restore-mark { width: 9px; height: 8px; border: 1.5px solid white; box-shadow: 3px -3px 0 -1px #3673d3, 3px -3px 0 0 white; }
+.menu-strip { height: 25px; flex: 0 0 auto; display: flex; gap: 18px; align-items: center; padding: 0 9px; font-size: 11px; color: #263045; background: #ece9d8; border-bottom: 1px solid #d2cdbb; }
+.menu-strip span:first-letter { text-decoration: underline; }
+.window-content { min-height: 0; flex: 1; overflow: auto; background: #fff; user-select: text; }
+
+.eyebrow { margin: 0 0 8px; color: #7f8797; font-size: 10px; font-weight: 800; letter-spacing: 1.7px; }
+.blue-text { color: #1f5ec9; }
+.welcome-view { min-height: 100%; display: grid; grid-template-columns: 235px 1fr; }
+.welcome-sidebar { color: white; padding: 34px 27px; display: flex; flex-direction: column; align-items: flex-start; background: linear-gradient(150deg, #1443a5, #2b72df 60%, #5291ec); position: relative; overflow: hidden; }
+.welcome-sidebar::after { content: ""; position: absolute; width: 210px; height: 210px; border: 38px solid rgba(255,255,255,.05); border-radius: 50%; right: -105px; bottom: -60px; }
+.avatar { width: 72px; height: 72px; border-radius: 10px; display: grid; place-items: center; color: #1556b3; background: linear-gradient(145deg, #fff, #bce8ff); border: 2px solid white; box-shadow: 0 5px 16px rgba(0,32,108,.3); margin-bottom: 25px; }
+.welcome-sidebar .eyebrow { color: #bcd6ff; }.welcome-sidebar h1 { font: 700 38px/1 "Segoe UI", sans-serif; margin: 0 0 7px; letter-spacing: -1px; }.welcome-sidebar > p:not(.eyebrow) { font-size: 13px; line-height: 1.45; color: #dceaff; margin: 0; }
+.cursor { display: inline-block; width: 2px; height: 33px; background: white; margin-left: 4px; vertical-align: -4px; animation: blink .9s steps(2) infinite; }@keyframes blink { 50% { opacity: 0; } }
+.availability { margin-top: auto; display: flex; align-items: center; gap: 7px; font-size: 10px; font-weight: 700; line-height: 1.35; text-transform: uppercase; letter-spacing: .7px; }.availability span { width: 8px; height: 8px; flex: 0 0 auto; border-radius: 50%; background: #65e75e; box-shadow: 0 0 0 3px rgba(101,231,94,.18); }
+.location { margin-top: 12px; display: flex; gap: 5px; align-items: center; color: #d5e4ff; font-size: 11px; }
+.welcome-main { padding: 35px 40px 28px; background: #fbfcff; }
+.welcome-main h2 { max-width: 440px; margin: 0; color: var(--ink); font: 700 28px/1.18 "Segoe UI", sans-serif; letter-spacing: -.65px; }
+.welcome-copy { margin: 14px 0 22px; max-width: 465px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+.quick-actions { display: grid; gap: 8px; }
+.quick-actions button { width: 100%; display: grid; grid-template-columns: 38px 1fr auto; gap: 11px; align-items: center; text-align: left; border: 1px solid #dbe1ee; border-radius: 7px; background: white; padding: 8px 11px; cursor: pointer; box-shadow: 0 2px 5px rgba(31,54,100,.04); }
+.quick-actions button:hover { border-color: #84aaf2; transform: translateX(3px); box-shadow: 0 3px 10px rgba(31,94,201,.1); }
+.quick-actions b { display: block; font-size: 12px; }.quick-actions small { display: block; margin-top: 2px; color: #7d8799; font-size: 10px; }.quick-actions button > svg { color: #8e9aaf; }
+.action-icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 6px; }.action-icon--folder { color: #a96a00; background: #fff0a9; }.action-icon--user { color: #165abb; background: #d8e9ff; }.action-icon--mail { color: #2c7b50; background: #d9f3e5; }
+.welcome-hint { margin-top: 15px; color: #8b94a4; display: flex; align-items: center; gap: 6px; font-size: 10px; }
+
+.content-pad { padding: 30px 34px; }
+.section-heading { display: flex; gap: 18px; align-items: center; border-bottom: 1px solid #e4e8ef; padding-bottom: 20px; }.section-heading h2 { margin: 0; font: 700 27px/1.13 "Segoe UI", sans-serif; letter-spacing: -.6px; color: var(--ink); }.large-app-icon { width: 67px; height: 67px; display: grid; place-items: center; border-radius: 13px; }.user-bg { color: white; background: linear-gradient(145deg, #69b7ff, #1956c5); box-shadow: inset 0 0 0 1px rgba(0,0,0,.07), 0 8px 20px rgba(31,94,201,.18); }
+.about-grid { display: grid; grid-template-columns: 1.55fr 1fr; gap: 28px; padding: 22px 0 23px; }.about-grid p { color: #5d6676; margin: 0 0 12px; font-size: 13px; line-height: 1.62; }.about-grid strong { color: #27354c; }.fact-card { padding: 15px; border-radius: 8px; background: #f0f5fd; border: 1px solid #dce7f7; }.fact-card p { margin: 0; padding: 8px 0; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #d8e2f1; font-size: 11px; }.fact-card p:last-child { border: 0; }.fact-card svg { color: #245edb; flex: 0 0 auto; }
+.approach-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }.approach-row article { position: relative; overflow: hidden; padding: 13px; border: 1px solid #e0e5ec; border-radius: 7px; }.approach-row span { position: absolute; right: 7px; top: -7px; color: #edf1f7; font-size: 42px; font-weight: 800; }.approach-row h3 { position: relative; margin: 0 0 5px; font-size: 12px; }.approach-row p { position: relative; margin: 0; color: #737d8e; font-size: 10px; line-height: 1.45; }
+
+.projects-view { min-height: 100%; background: #f8f9fc; }
+.project-case-study { grid-column: 1 / -1; margin: 0 14px 14px; padding: 14px; min-width: 0; border: 1px solid #dce6f5; border-radius: 5px; background: #f5f8fd; font-size: 10px; line-height: 1.5; color: #617087; }
+.project-case-study h4 { margin: 0 0 6px; color: #245edb; }.project-case-study p { margin: 6px 0; }.project-case-study .sample-note { color: #8a7540; }
+.explorer-address { height: 34px; display: flex; align-items: center; padding: 4px 6px; gap: 6px; border-bottom: 1px solid #cdd2db; background: #ece9d8; font-size: 10px; }.explorer-address > span { color: #606878; }.explorer-address > div { height: 24px; flex: 1; display: flex; align-items: center; gap: 6px; background: white; border: 1px solid #9ca4b4; padding: 0 7px; color: #39455a; }.explorer-address svg { color: #dea700; }.explorer-address button { height: 24px; border: 1px solid #97a1b2; background: linear-gradient(#fff, #e5e8ee); font-size: 10px; }
+.project-intro { padding: 23px 28px 17px; display: flex; justify-content: space-between; align-items: flex-end; }.project-intro h2 { margin: 0; font: 700 25px "Segoe UI", sans-serif; color: var(--ink); }.project-intro > span { color: #7e8797; font-size: 10px; }
+.project-list { display: grid; gap: 13px; padding: 0 28px 26px; }.project-card { min-height: 165px; display: grid; grid-template-columns: 220px 1fr; border: 1px solid #d9dfe8; border-radius: 8px; overflow: hidden; background: white; box-shadow: 0 3px 10px rgba(37,50,74,.06); }.project-card:hover { border-color: #a6bce5; box-shadow: 0 6px 18px rgba(37,50,74,.1); }
+.project-visual { position: relative; padding: 24px; display: grid; place-items: center; overflow: hidden; }.project-visual::before { content: ""; position: absolute; width: 130px; height: 130px; border: 32px solid rgba(255,255,255,.08); border-radius: 50%; left: -55px; top: -42px; }.project-visual--green { background: linear-gradient(145deg, #2e6849, #7cb65a); }.project-visual--red { background: linear-gradient(145deg, #702b2b, #c25b45); }.project-visual--blue { background: linear-gradient(145deg, #234e7e, #3d91bf); }.project-visual > small { position: absolute; left: 13px; bottom: 9px; color: rgba(255,255,255,.8); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; }
+.mini-window { width: 145px; height: 93px; background: #f8fbff; border-radius: 5px; box-shadow: 0 10px 20px rgba(0,0,0,.25); position: relative; z-index: 1; transform: rotate(-2deg); }.mini-title { height: 18px; display: flex; align-items: center; justify-content: flex-end; gap: 3px; padding: 0 5px; background: #2362c5; border-radius: 5px 5px 0 0; }.mini-title i { width: 6px; height: 6px; border-radius: 1px; background: white; opacity: .75; }.mini-content { padding: 13px; display: grid; gap: 8px; }.mini-content span { height: 7px; border-radius: 5px; background: #dfe6ee; }.mini-content span:nth-child(2) { width: 70%; }.mini-content span:last-child { height: 23px; background: #cbd8e5; }
+.project-details { padding: 19px 21px; }.project-details .eyebrow { margin-bottom: 5px; }.project-details h3 { margin: 0 0 7px; font: 700 17px "Segoe UI", sans-serif; color: var(--ink); }.project-details > p:not(.eyebrow) { margin: 0 0 11px; color: #687284; font-size: 11px; line-height: 1.5; }.tag-row { display: flex; gap: 5px; flex-wrap: wrap; }.tag-row span { padding: 4px 7px; border-radius: 4px; color: #4e5e78; background: #edf1f6; font-size: 9px; }.text-button { margin-top: 10px; border: 0; padding: 0; display: flex; align-items: center; gap: 3px; background: transparent; color: #245edb; font-size: 10px; font-weight: 700; cursor: pointer; }
+
+.skills-view { min-height: 100%; display: grid; grid-template-columns: 205px 1fr; }.skills-sidebar { padding: 29px 23px; color: white; background: linear-gradient(155deg, #254f9f, #628cdd); }.control-icon { width: 58px; height: 58px; display: grid; place-items: center; border-radius: 10px; background: rgba(255,255,255,.17); border: 1px solid rgba(255,255,255,.25); }.skills-sidebar h2 { font: 700 23px "Segoe UI", sans-serif; margin: 18px 0 8px; }.skills-sidebar > p { margin: 0; color: #dce8ff; font-size: 11px; line-height: 1.55; }.system-meter { margin-top: 34px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,.22); }.system-meter span { display: block; color: #cbdcff; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; }.system-meter strong { margin-top: 7px; display: flex; align-items: center; gap: 7px; font-size: 10px; }.system-meter i { width: 7px; height: 7px; border-radius: 50%; background: #68e25a; box-shadow: 0 0 0 3px rgba(104,226,90,.18); }
+.skill-groups { padding: 20px 25px; display: grid; gap: 8px; align-content: start; background: #f8f9fc; }.skill-groups section { display: grid; grid-template-columns: 38px 1fr; gap: 12px; align-items: start; background: white; border: 1px solid #dfe4ec; border-radius: 7px; padding: 11px 13px; }.skill-icon { width: 35px; height: 35px; display: grid; place-items: center; color: #245edb; background: #e7f0ff; border-radius: 6px; }.skill-icon svg { width: 18px; }.skill-groups h3 { margin: 0 0 7px; font-size: 12px; }.skill-pills { display: flex; flex-wrap: wrap; gap: 5px; }.skill-pills span { color: #647085; background: #f0f2f6; border: 1px solid #e7e9ee; border-radius: 3px; padding: 3px 6px; font-size: 9px; }
+
+.resume-view { min-height: 100%; padding-bottom: 26px; background: #8d95a2; }.resume-toolbar { position: sticky; top: 0; z-index: 2; height: 40px; padding: 6px 10px; display: flex; align-items: center; justify-content: space-between; background: #ece9d8; border-bottom: 1px solid #b6b1a1; }.resume-toolbar button { display: flex; align-items: center; gap: 6px; border: 1px solid #9da4af; border-radius: 3px; padding: 5px 9px; background: linear-gradient(#fff, #dde1e6); cursor: pointer; font-size: 10px; }.resume-toolbar span { font-size: 10px; color: #707887; }
+.resume-paper { width: min(600px, calc(100% - 40px)); margin: 24px auto 0; padding: 38px 45px; background: white; color: #2e3747; box-shadow: 0 5px 22px rgba(0,0,0,.25); font-family: Arial, sans-serif; }.resume-paper header { display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 14px; border-bottom: 3px solid #2159aa; }.resume-paper header h1 { margin: 0; font-size: 29px; }.resume-paper header p { margin: 4px 0 0; color: #2159aa; font-size: 12px; font-weight: 700; }.resume-paper header > div:last-child { text-align: right; display: grid; gap: 4px; color: #6c7480; font-size: 8px; }.resume-paper section { margin-top: 16px; }.resume-paper section > h2 { margin: 0 0 7px; padding-bottom: 4px; border-bottom: 1px solid #d9dee7; color: #2159aa; font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; }.resume-paper section > p { margin: 0; font-size: 9px; line-height: 1.55; }.resume-item { margin: 0 0 9px; }.resume-item h3 { font-size: 10px; margin: 0 0 2px; }.resume-item p { margin: 0 0 3px; color: #586170; font-size: 8px; line-height: 1.4; }.resume-item small { color: #2159aa; font-size: 7px; font-weight: 700; }
+
+.contact-view { min-height: 100%; display: grid; grid-template-columns: 235px 1fr; }.contact-view > aside { padding: 30px 25px; color: white; background: linear-gradient(150deg, #1d5a92, #4b94c3); }.contact-view aside .eyebrow { color: #cdeaff; }.contact-view aside h2 { font: 700 25px/1.15 "Segoe UI", sans-serif; margin: 0 0 12px; }.contact-view aside > p:not(.eyebrow) { margin: 0; color: #def1ff; font-size: 11px; line-height: 1.55; }.contact-links { margin-top: 25px; display: grid; gap: 7px; }.contact-links a { min-width: 0; display: flex; align-items: center; gap: 9px; padding: 9px; border: 1px solid rgba(255,255,255,.2); border-radius: 5px; background: rgba(255,255,255,.09); color: white; text-decoration: none; font-size: 10px; }.contact-links a:hover { background: rgba(255,255,255,.16); }.contact-links a > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }.contact-links small { display: block; color: #c9e8ff; font-size: 8px; margin-bottom: 2px; }.contact-links a > svg:last-child { margin-left: auto; flex: 0 0 auto; }
+.contact-view form { display: grid; align-content: center; gap: 12px; padding: 28px 34px; background: #f8fafc; }.contact-view label { display: grid; gap: 5px; color: #4c5667; font-size: 10px; font-weight: 700; }.contact-view input,.contact-view textarea { width: 100%; border: 1px solid #b8c1cf; border-radius: 4px; background: white; color: #263247; padding: 8px 9px; font-size: 11px; box-shadow: inset 0 1px 2px rgba(0,0,0,.06); }.contact-view textarea { min-height: 90px; resize: vertical; }.contact-view form > button,.sent-state button { justify-self: start; display: flex; align-items: center; gap: 7px; border: 1px solid #0b399a; border-radius: 4px; background: linear-gradient(#4c8df4, #1654c4); color: white; padding: 8px 14px; cursor: pointer; font-size: 11px; font-weight: 700; box-shadow: inset 0 1px rgba(255,255,255,.4); }.contact-view form > small { color: #8992a1; font-size: 8px; line-height: 1.4; }
+.sent-state { padding: 40px; align-self: center; text-align: center; }.sent-state > svg { color: #43a844; }.sent-state h3 { margin: 12px 0 6px; }.sent-state p { max-width: 300px; color: #707a8b; font-size: 11px; line-height: 1.5; }.sent-state code { color: #245edb; }.sent-state button { margin: 14px auto 0; }
+.contact-links .copy-email { justify-self: start; display: flex; align-items: center; gap: 6px; padding: 3px 2px; color: #e1f2ff; border: 0; background: none; font-size: 9px; cursor: pointer; }
+.contact-links .copy-email:hover { color: white; text-decoration: underline; }
+.contact-view form { min-width: 0; }
+.contact-view form > small { font-size: 9px; line-height: 1.5; color: #69758a; }
+.contact-view form > small a { color: #2455ac; }
+.contact-view button:disabled { cursor: wait; opacity: .7; }
+.contact-view input:disabled,.contact-view textarea:disabled { color: #6e7785; background: #edf1f6; }
+.contact-view .contact-honeypot { display: none; }
+.contact-error { margin: 0; padding: 9px 10px; border: 1px solid #e6b3b3; border-radius: 4px; color: #8d2d2d; background: #fff0f0; font-size: 10px; line-height: 1.5; }
+.sending-spinner { animation: sending-spin 1s linear infinite; }
+@keyframes sending-spin { to { transform: rotate(360deg); } }
+.recycle-view { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 35px; background: linear-gradient(#fff, #eff7fd); }.recycle-view > svg { color: #2a8fc5; filter: drop-shadow(0 5px 3px rgba(0,0,0,.14)); }.recycle-view h2 { margin: 13px 0 5px; font: 700 22px "Segoe UI", sans-serif; }.recycle-view p { max-width: 330px; color: #6e7888; font-size: 11px; line-height: 1.5; }.recycle-status { margin-top: 15px; padding: 7px 11px; border: 1px solid #d1deeb; background: #f5faff; color: #4d6885; font-size: 9px; }
+
+.taskbar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 9990; height: 42px; display: flex; align-items: stretch; background: linear-gradient(#2b78e8 0%, #1459cf 10%, #2169d8 75%, #1250c0 100%); border-top: 1px solid #3d94fb; box-shadow: 0 -1px 4px rgba(0,42,137,.45); }
+.start-button { width: 112px; flex: 0 0 112px; margin: -1px 0 0; border: 0; border-radius: 0 14px 14px 0; padding: 0 15px 0 9px; display: flex; align-items: center; gap: 7px; color: white; background: radial-gradient(ellipse at 35% 15%, #7fcf68, transparent 30%), linear-gradient(#4fb33a 0%, #2d9630 50%, #198b26 75%, #3ea538 100%); box-shadow: inset 0 1px 1px rgba(255,255,255,.65), inset -3px 0 5px rgba(13,89,21,.72), 2px 0 5px rgba(0,43,126,.55); cursor: pointer; text-shadow: 1px 1px #185317; }.start-button:hover,.start-button--active { filter: brightness(1.08); }.start-button b { font: italic 700 18px "Segoe UI", sans-serif; }
+.start-logo { width: 25px; height: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 2px; transform: perspective(20px) rotateY(-8deg); }.start-logo i { border-radius: 1px; box-shadow: inset 0 0 2px rgba(0,0,0,.25); }.start-logo i:nth-child(1){background:#f14932}.start-logo i:nth-child(2){background:#74bd32}.start-logo i:nth-child(3){background:#35a9ea}.start-logo i:nth-child(4){background:#f9d239}
+.taskbar-apps { flex: 1; min-width: 0; padding: 4px 7px; display: flex; gap: 4px; overflow: hidden; }.taskbar-apps button { width: 180px; min-width: 80px; max-width: 180px; border: 1px solid #0c49b4; border-radius: 3px; padding: 0 9px; display: flex; align-items: center; gap: 7px; color: white; background: linear-gradient(#4083e2, #2869cf); box-shadow: inset 1px 1px rgba(255,255,255,.18); cursor: pointer; font-size: 11px; text-shadow: 1px 1px #174491; }.taskbar-apps button:hover { background: #4d8be8; }.taskbar-apps .taskbar-app--active { background: #1f54ae; box-shadow: inset 1px 2px 4px rgba(0,30,105,.55); }.taskbar-apps button span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.system-tray { flex: 0 0 116px; padding: 0 12px; display: flex; align-items: center; justify-content: flex-end; gap: 9px; color: white; background: linear-gradient(#2fa6ec, #148bd7 75%, #1180cb); border-left: 1px solid #0e70c3; box-shadow: inset 1px 0 rgba(255,255,255,.22); font-size: 11px; text-shadow: 1px 1px #146098; }
+
+.start-menu { position: absolute; left: 0; bottom: 41px; z-index: 9989; width: 410px; color: #1d2a3d; border: 2px solid #1754c0; border-radius: 7px 7px 0 0; overflow: hidden; background: white; box-shadow: 4px -5px 18px rgba(0,35,105,.35); animation: start-open .15s ease-out both; }@keyframes start-open{from{opacity:0;transform:translateY(8px)}}
+.start-menu header { height: 62px; display: flex; align-items: center; gap: 10px; padding: 8px; color: white; background: linear-gradient(#2f7deb, #1457c7); text-shadow: 1px 1px #16408b; }.start-avatar { width: 45px; height: 45px; display: grid; place-items: center; border: 2px solid white; border-radius: 5px; color: #1556b3; background: linear-gradient(145deg, #fff, #bce8ff); }.start-menu header strong { font: 700 17px "Segoe UI", sans-serif; }
+.start-columns { display: grid; grid-template-columns: 1.15fr .85fr; min-height: 310px; }.start-primary { padding: 8px 7px; }.start-secondary { padding: 9px 7px; background: #dbeafe; border-left: 1px solid #b3d0f1; }.start-menu button { border: 0; background: transparent; cursor: pointer; text-align: left; }.start-menu button:hover { background: #2f72d9; color: white; }.start-primary > button { width: 100%; min-height: 43px; padding: 5px; display: flex; align-items: center; gap: 8px; border-radius: 3px; }.start-primary > button > span:last-child { min-width: 0; }.start-primary b { display: block; font-size: 11px; }.start-primary small { display: block; margin-top: 2px; color: #7b8493; font-size: 8px; }.start-primary button:hover small { color: #e7f0ff; }.start-icon { width: 34px; height: 34px; flex: 0 0 auto; border-radius: 4px; display: grid; place-items: center; color: #38516c; background: #edf1f4; }.start-icon svg { width: 22px; }.folder-bg { color: #9a6807; background: #fff2a7; }.mail-bg { color: #2367a4; background: #d7eeff; }.start-menu hr { height: 1px; margin: 5px 3px; border: 0; background: linear-gradient(90deg, transparent, #c9c9c9, transparent); }.start-secondary button { width: 100%; min-height: 38px; display: flex; align-items: center; gap: 9px; padding: 6px 8px; border-radius: 3px; font-size: 10px; }.start-secondary svg { color: #275589; }.start-secondary button:hover svg { color: white; }.start-menu footer { height: 44px; display: flex; align-items: center; justify-content: flex-end; padding: 5px 9px; background: linear-gradient(#2d7ce8, #1455c4); }.start-menu footer button { color: white; display: flex; align-items: center; gap: 6px; padding: 6px 9px; border-radius: 3px; font-size: 10px; }
+.toast { position: absolute; z-index: 9998; right: 16px; bottom: 56px; max-width: 390px; display: flex; align-items: center; gap: 9px; padding: 11px 12px; border: 1px solid #9e7e18; border-radius: 6px; color: #514213; background: #fff8cc; box-shadow: 0 6px 22px rgba(0,0,0,.2); font-size: 10px; animation: toast-in .18s ease-out; }.toast > svg { color: #4a9d36; flex: 0 0 auto; }.toast button { border: 0; background: transparent; margin-left: auto; cursor: pointer; padding: 2px; }@keyframes toast-in{from{opacity:0;transform:translateY(10px)}}
+
+.profile-photo { overflow: hidden; flex-shrink: 0; }
+.profile-photo img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: cover; object-position: center; }
+.project-visual--purple { background: linear-gradient(145deg, #4c3d89, #8271cd); }
+.project-visual--screenshot { padding: 14px 12px 30px; min-width: 0; }
+.project-thumbnail { position: relative; display: block; width: 100%; min-width: 0; border: 1px solid rgba(255,255,255,.65); border-radius: 4px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,.22); cursor: zoom-in; }
+.project-thumbnail img,.project-screenshot img { display: block; width: 100%; height: auto; }
+.project-thumbnail:hover { outline: 2px solid #d8f3c1; outline-offset: 2px; }
+.project-screenshot { margin: 10px 0 14px; }
+.project-screenshot a { display: block; border: 1px solid #d9dfe8; border-radius: 5px; overflow: hidden; cursor: zoom-in; }
+.project-screenshot figcaption { margin-top: 7px; color: #66758b; font-size: 9px; }
+
+@media (max-width: 760px) {
+  .desktop-icons { grid-template-columns: 77px 77px; grid-auto-rows: 76px; }.desktop-icon { width: 75px; min-height: 70px; font-size: 10px; }.desktop-icon-image { transform: scale(.9); }
+  .xp-window,.xp-window--maximized { inset: 7px 4px 45px 4px !important; width: auto !important; height: auto !important; min-width: 0; min-height: 0; border-radius: 7px 7px 2px 2px; }
+  .menu-strip { display: none; }.titlebar { touch-action: none; }
+  .welcome-view,.skills-view,.contact-view { display: block; }.welcome-sidebar { min-height: 215px; padding: 22px; }.avatar { width: 52px; height: 52px; margin-bottom: 13px; }.avatar svg { width: 38px; }.welcome-sidebar h1 { font-size: 29px; }.availability { margin-top: 20px; }.welcome-main { padding: 24px 21px; }.welcome-main h2 { font-size: 23px; }.welcome-copy { font-size: 12px; }
+  .content-pad { padding: 22px 20px; }.section-heading h2 { font-size: 22px; }.large-app-icon { width: 54px; height: 54px; }.about-grid { grid-template-columns: 1fr; gap: 9px; }.approach-row { grid-template-columns: 1fr; }
+  .project-intro { padding: 19px 18px 14px; }.project-intro h2 { font-size: 21px; }.project-list { padding: 0 14px 20px; }.project-card { grid-template-columns: 1fr; }.project-visual { min-height: 130px; }
+  .skills-sidebar { padding: 22px; }.system-meter { margin-top: 18px; }.skill-groups { padding: 14px; }
+  .contact-view > aside { padding: 23px; }.contact-links { margin-top: 17px; }.contact-view form { padding: 24px 22px; }
+  .resume-paper { width: calc(100% - 20px); margin-top: 10px; padding: 24px 21px; }.resume-paper header { align-items: flex-start; }.resume-paper header h1 { font-size: 22px; }
+  .start-menu { width: min(410px, 100vw); }.taskbar-apps button { width: 48px; min-width: 44px; padding: 0; justify-content: center; }.taskbar-apps button span { display: none; }.start-button { width: 96px; flex-basis: 96px; }.system-tray { flex-basis: 87px; padding: 0 8px; }.system-tray svg { display: none; }
+}
+
+@media (max-height: 620px) and (min-width: 761px) {
+  .desktop-icons { grid-template-columns: 86px 86px; }.start-menu { transform-origin: bottom left; max-height: calc(100vh - 42px); overflow: auto; }.welcome-sidebar { padding-top: 24px; }.welcome-main { padding-top: 25px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+@media print {
+  body * { visibility: hidden !important; }
+  .resume-paper,.resume-paper * { visibility: visible !important; }
+  .resume-paper { position: fixed; inset: 0; width: 100%; margin: 0; box-shadow: none; padding: 20mm; }
+}
