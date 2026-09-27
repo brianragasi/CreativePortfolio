@@ -189,7 +189,10 @@ function ProjectsContent() {
               <h3>{project.title}</h3>
               <p>{project.description}</p>
               <div className="tag-row">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-              <button className="text-button" aria-expanded={expandedProject === project.title} onClick={() => setExpandedProject(expandedProject === project.title ? null : project.title)}>{expandedProject === project.title ? 'Close case study' : 'View case study'} <ChevronRight size={15} /></button>
+              <div className="project-actions">
+                <button className="text-button" aria-expanded={expandedProject === project.title} onClick={() => setExpandedProject(expandedProject === project.title ? null : project.title)}>{expandedProject === project.title ? 'Close case study' : 'View case study'} <ChevronRight size={15} /></button>
+                {project.links.map((link) => <a className="project-external-link" key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">{link.label} <ExternalLink size={12} /></a>)}
+              </div>
             </div>
             {expandedProject === project.title && (
               <div className="project-case-study">
@@ -205,7 +208,6 @@ function ProjectsContent() {
                 <p>{project.description}</p>
                 <p><strong>My contribution:</strong> {project.contribution}</p>
                 <p><strong>Focus:</strong> {project.tags.join(', ')}</p>
-                {'url' in project && project.url && <p><a className="project-live-link" href={project.url} target="_blank" rel="noreferrer">Visit live project <ExternalLink size={12} /></a></p>}
               </div>
             )}
           </article>
