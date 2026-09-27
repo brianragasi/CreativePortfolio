@@ -4,6 +4,7 @@ import {
   ChevronRight,
   CircleUserRound,
   Code2,
+  ExternalLink,
   FileText,
   FolderOpen,
   HardDrive,
@@ -204,6 +205,7 @@ function ProjectsContent() {
                 <p>{project.description}</p>
                 <p><strong>My contribution:</strong> {project.contribution}</p>
                 <p><strong>Focus:</strong> {project.tags.join(', ')}</p>
+                {'url' in project && project.url && <p><a className="project-live-link" href={project.url} target="_blank" rel="noreferrer">Visit live project <ExternalLink size={12} /></a></p>}
               </div>
             )}
           </article>

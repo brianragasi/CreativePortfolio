@@ -1,5 +1,6 @@
 import profilePhoto from './assets/brian-profile.jpg'
 import highlandFreshScreenshot from './assets/highland-fresh.png'
+import itEventManagementScreenshot from './assets/it-event-management.png'
 import dotaScreenshot from './assets/dota-draft-predictor.png'
 import dotaTrackerScreenshot from './assets/dota-tracker.png'
 import minecraftScreenshot from './assets/minecraft-game.png'
@@ -32,6 +33,21 @@ export const projects = [
     imageWidth: 1903,
     imageHeight: 961,
     imageAlt: 'Highland Fresh Dairy Operations System staff sign-in page with role-based access for plant operations',
+  },
+  {
+    title: 'ITEventManagement — CITE Events',
+    kicker: 'Campus event platform',
+    description:
+      'A campus event system for publishing activities and coordinating student, faculty, officer, and adviser workflows across attendance, scoring, and leaderboards.',
+    contribution: 'Role-specific interfaces and APIs, QR attendance workflows, scoring, MySQL data modeling, and responsive UI.',
+    tags: ['PHP', 'MySQL', 'JavaScript', 'Tailwind CSS'],
+    accent: 'teal',
+    metric: 'CITE events portal',
+    image: itEventManagementScreenshot,
+    imageWidth: 1440,
+    imageHeight: 900,
+    imageAlt: 'CITE campus events homepage with event discovery and upcoming activity calendar',
+    url: 'https://cite-events.duckdns.org/ITEventManagement/',
   },
   {
     title: 'Aegis Signal — Dota 2 Match Tracker',
