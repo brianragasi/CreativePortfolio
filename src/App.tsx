@@ -129,7 +129,7 @@ function WelcomeContent({ openApp }: { openApp: (id: WindowId) => void }) {
             <ChevronRight size={18} />
           </button>
         </div>
-        <div className="welcome-hint"><MousePointer2 size={14} /> Double-click a desktop icon to explore.</div>
+        <div className="welcome-hint"><MousePointer2 size={14} /> Click a desktop icon to explore.</div>
       </div>
     </div>
   )
@@ -392,7 +392,7 @@ export default function App() {
 
   const handleDesktopIcon = (id: WindowId) => {
     setSelectedIcon(id)
-    if (window.matchMedia('(pointer: coarse)').matches) openApp(id)
+    openApp(id)
   }
 
   const renderContent = (id: WindowId) => {
@@ -417,14 +417,27 @@ export default function App() {
               key={app.id}
               onPointerDown={(event) => event.stopPropagation()}
               onClick={() => handleDesktopIcon(app.id)}
-              onDoubleClick={() => openApp(app.id)}
-              onKeyDown={(event) => event.key === 'Enter' && openApp(app.id)}
             >
               <span className={`desktop-icon-image desktop-icon-image--${app.icon}`}><AppIcon name={app.icon} size={34} /></span>
               <span>{app.label}</span>
             </button>
           ))}
         </div>
+
+        {!booting && !windows.some((app) => app.open && !app.minimized) && (
+          <section className="desktop-home" aria-labelledby="desktop-home-title">
+            <div className="desktop-home-title"><Monitor size={17} aria-hidden="true" /> Brian's Portfolio</div>
+            <div className="desktop-home-content">
+              <p className="desktop-home-kicker">WELCOME BACK</p>
+              <h1 id="desktop-home-title">{profile.name}</h1>
+              <p>{profile.role}. Explore my work or open the welcome window to start again.</p>
+              <div className="desktop-home-actions">
+                <button type="button" onClick={() => openApp('welcome')}>Open welcome</button>
+                <button type="button" onClick={() => openApp('projects')}>Browse projects</button>
+              </div>
+            </div>
+          </section>
+        )}
 
         {windows.map((app) => (
           <PortfolioWindow
