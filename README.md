@@ -11,23 +11,21 @@ npm run dev
 
 Create a production build with `npm run build`.
 
-## Deploy with Cloudflare Pages
+## Deploy to Cloudflare Workers
 
-This repository is ready for Cloudflare Pages' Git integration:
+Live site: [creative-portfolio.ragasibrian2.workers.dev](https://creative-portfolio.ragasibrian2.workers.dev)
 
-- Repository: `brianragasi/CreativePortfolio`
-- Production branch: `main`
-- Framework preset: `Vite`
-- Build command: `npm run build`
-- Build output directory: `dist`
+The Vite build is hosted as Cloudflare Workers Static Assets. The Worker
+configuration serves `dist` and supports SPA routes. After pushing changes to
+[CreativePortfolio](https://github.com/brianragasi/CreativePortfolio), publish
+them with:
 
-In Cloudflare, open **Workers & Pages**, create a Pages application, choose
-**Connect to Git**, and select this repository. Git integration automatically
-builds and deploys the site when `main` is updated.
+```bash
+npm run deploy
+```
 
-Cloudflare assigns a free `*.pages.dev` address after the first deployment. A
-separately purchased custom domain can be attached from the Pages project's
-**Custom domains** settings.
+This is a direct Wrangler deployment. Pushing to GitHub alone does not update
+the live site.
 
 ## Personalize it
 
